@@ -1,10 +1,9 @@
 ﻿$(document).ready(function () {
 
-    $('#btnEdit').click(function () {
+    $('#btnCreate').click(function () {
 
         var model = {
 
-            Id: $('#txtId').val(),
             Name: $('#txtName').val(),
             Color: $('#txtColor').val(),
             Planet: $('#txtPlanet').val(),
@@ -14,7 +13,7 @@
         if (isModelOk(model)) {
             $.ajax({
 
-                url: '/Kybers/EditKyber',
+                url: '/Kybers/CreateKyber',
                 type: 'POST',
                 data: model,
                 success: function (d) {
