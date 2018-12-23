@@ -1,4 +1,4 @@
-﻿@model Project.Domain.Entities.Kyber
+﻿@model Project.Web.Models.KyberViewMdel
 
 @{
     ViewData["Title"] = "Create";
@@ -10,32 +10,39 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" id="txtName" />
-                <span asp-validation-for="Name" class="text-danger" id="nameValidation"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
-                <input asp-for="Color" class="form-control" id="txtColor" />
-                <span asp-validation-for="Color" class="text-danger" id="colorValidation"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Planet" class="control-label"></label>
-                <input asp-for="Planet" class="form-control" id="txtPlanet" />
-                <span asp-validation-for="Planet" class="text-danger" id="planetValidation"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Meaning" class="control-label"></label>
-                <input asp-for="Meaning" class="form-control" id="txtMeaning" />
-                <span asp-validation-for="Meaning" class="text-danger" id="meaningValidation"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" id="btnSubmitForm" />
-            </div>
-        </form>
+        
+        <div class="form-group">
+            <label class="control-label">Name: </label>
+            <input type="text" id="txtName" name="txtName" class="form-control" />
+            <span id="chkName" class="error"></span>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label">Color: </label>
+            <input type="text" id="txtColor" name="txtColor" class="form-control" />
+            <span id="chkColor" class="error"></span>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label">Planet: </label>
+            <input type="text" id="txtPlanet" name="txtPlanet" class="form-control" />
+            <span id="chkPlanet" class="error"></span>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label">Meaning: </label>
+            <input type="text" id="txtMeaning" name="txtMeaning" class="form-control" />
+            <span id="chkMeaning" class="error"></span>
+        </div>
+        
+        <button class="btn btn-default" id="btnCreate">
+            Create
+        </button>
+        
+        <br />
+        <br />
+
+        <span id="msg"></span>
     </div>
 </div>
 
@@ -45,15 +52,15 @@
 
 @section Scripts {
 
-    <script>
+    @*<script src="~/scripts/views/kybers/formvalidation.js"></script>*@
+    <script src="~/scripts/views/kybers/create.js"></script>
+}
 
-        $(document).ready(function () {
+@section Styles {
 
-            System.import('/scripts/views/kybers/create.js').then(function () {
-                new Teste();
-            });
-
-        });
-
-    </script>
+    <style>
+        .error {
+            color: lightcoral;
+        }
+    </style>
 }

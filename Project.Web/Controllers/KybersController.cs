@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Project.Domain.Contracts.Repositories;
 using Project.Domain.Entities;
+using Project.Web.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace Project.Web.Controllers
@@ -9,9 +11,13 @@ namespace Project.Web.Controllers
     public class KybersController : Controller
     {
         private readonly IKyberRepository _kyberRepository;
+        private readonly IMapper _mapper;
 
-        public KybersController(IKyberRepository kyberRepository)
-            => _kyberRepository = kyberRepository;
+        public KybersController(IKyberRepository kyberRepository, IMapper mapper)
+        {
+            _kyberRepository = kyberRepository;
+            _mapper = mapper;
+        }            
 
         // GET: Kybers
         public async Task<IActionResult> Index()
@@ -35,21 +41,21 @@ namespace Project.Web.Controllers
         public IActionResult Create()
             => View();
 
-        // POST: Kybers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Color,Planet,Meaning")] Kyber kyber)
+        // POST: Kybers/CreateKyber
+        public async Task<JsonResult> CreateKyber(KyberViewMdel model)
         {
-            if (ModelState.IsValid)
+            try
             {
+                var kyber = _mapper.Map<Kyber>(model);
+
                 await _kyberRepository.AddAsync(kyber);
 
-                return RedirectToAction(nameof(Index));
+                return Json($"Kyber successful created.");
             }
-
-            return View(kyber);
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
 
         // GET: Kybers/Edit/5
@@ -60,40 +66,29 @@ namespace Project.Web.Controllers
 
             var kyber = await _kyberRepository.GetByIdAsync(id);
 
+            var model = _mapper.Map<KyberViewMdel>(kyber);
+
             if (kyber == null)
                 return NotFound();
 
-            return View(kyber);
+            return View(model);
         }
 
-        // POST: Kybers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Color,Planet,Meaning")] Kyber kyber)
+        // POST: Kybers/EditKyber/5
+        public async Task<JsonResult> EditKyber(KyberViewMdel model)
         {
-            if (id != kyber.Id)
-                return NotFound();
-
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    await _kyberRepository.UpdateAsync(kyber);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!KyberExists(kyber.Id))
-                        return NotFound();
-                    else
-                        throw;
-                }
+                var kyber = _mapper.Map<Kyber>(model);
 
-                return RedirectToAction(nameof(Index));
+                await _kyberRepository.UpdateAsync(kyber);
+
+                return Json($"Kyber successful updated.");
             }
-
-            return View(kyber);
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
 
         // GET: Kybers/Delete/5

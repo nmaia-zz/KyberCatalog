@@ -1,9 +1,10 @@
 ﻿$(document).ready(function () {
 
-    $('#btnCreate').click(function () {
+    $('#btnEdit').click(function () {
 
         var model = {
 
+            Id: $('#txtId').val(),
             Name: $('#txtName').val(),
             Color: $('#txtColor').val(),
             Planet: $('#txtPlanet').val(),
@@ -13,7 +14,7 @@
         if (isModelOk(model)) {
             $.ajax({
 
-                url: '/Kybers/CreateKyber',
+                url: '/Kybers/EditKyber',
                 type: 'POST',
                 data: model,
                 success: function (d) {
@@ -68,7 +69,7 @@
                 }
             });
 
-            if (areEqual(modelOk,modelOnValidation))
+            if (areEqual(modelOk, modelOnValidation))
                 return true;
             else
                 return false;
@@ -88,8 +89,8 @@
 
             else {
                 $('#chkName').text('');
-                return true;                
-            }                
+                return true;
+            }
         }
 
         function isColorOk(color) {
@@ -106,8 +107,8 @@
 
             else {
                 $('#chkColor').text('');
-                return true;      
-            }                
+                return true;
+            }
         }
 
         function isPlanetOk(planet) {
@@ -124,8 +125,8 @@
 
             else {
                 $('#chkPlanet').text('');
-                return true;                      
-            }                
+                return true;
+            }
         }
 
         function isMeaningOk(meaning) {
@@ -142,8 +143,8 @@
 
             else {
                 $('#chkMeaning').text('');
-                return true;      
-            }   
+                return true;
+            }
         }
 
         function areEqual(arr1, arr2) {
