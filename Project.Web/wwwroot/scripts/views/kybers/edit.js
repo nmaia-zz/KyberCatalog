@@ -21,7 +21,6 @@
 
                     if (data.status === 200) {
                         $('#msg').html(data.message);
-                        $('.form-control').val('');
                     }
                     else {
                         $('#msg').html(data.message);
