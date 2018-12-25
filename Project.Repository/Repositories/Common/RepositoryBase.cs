@@ -45,7 +45,7 @@ namespace Project.Repository.Repositories.Common
             await db.SaveChangesAsync();
         }
 
-        public virtual int GetByNameCount(string name)
+        public virtual async Task<IEnumerable<TEntity>> GetByNameOrColor(string nameOrColor)
         {
             throw new NotImplementedException();
         }

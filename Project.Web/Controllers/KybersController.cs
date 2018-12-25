@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Project.Business.Contracts;
 using Project.Domain.Contracts.Repositories;
 using Project.Domain.Entities;
-using Project.Repository.Repositories;
 using Project.Web.Models;
 using System;
 using System.Threading.Tasks;
@@ -25,8 +24,13 @@ namespace Project.Web.Controllers
         }
 
         // GET: Kybers
-        public async Task<IActionResult> Index()
-            => View(await _kyberRepository.GetAllAsync());
+        public async Task<ViewResult> Index([FromQuery] string searchObj)
+        {
+            if (string.IsNullOrEmpty(searchObj))
+                return View(await _kyberRepository.GetAllAsync());
+            else
+                return View(await _kyberRepository.GetByNameOrColor(searchObj));            
+        }            
 
         // GET: Kybers/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -134,6 +138,10 @@ namespace Project.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> FilterBy([FromQuery] string stringForSearch)
+        //    => View(await _kyberRepository.GetByNameOrColor(stringForSearch));        
 
         private bool KyberExists(int id)
             => _kyberRepository.GetByIdAsync(id) != null;

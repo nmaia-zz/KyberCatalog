@@ -10,6 +10,6 @@ namespace Project.Domain.Contracts.Repositories.Common
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task UpdateAsync(TEntity obj);
         Task RemoveAsync(TEntity obj);
-        int GetByNameCount(string name);
+        Task<IEnumerable<TEntity>> GetByNameOrColor(string nameOrColor);
     }
 }
