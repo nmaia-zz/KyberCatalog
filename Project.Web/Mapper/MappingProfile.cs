@@ -8,8 +8,13 @@ namespace Project.Web.Mapper
     {
         public MappingProfile()
         {
-            CreateMap<KyberViewMdel, Kyber>();
-            CreateMap<Kyber, KyberViewMdel>();
+            //Mapper for registration
+            CreateMap<KyberCreateViewMdel, Kyber>();
+            CreateMap<Kyber, KyberCreateViewMdel>();
+
+            //Mapper for edition
+            CreateMap<KyberEditViewMdel, Kyber>();
+            CreateMap<Kyber, KyberEditViewMdel>();
         }
     }
 }

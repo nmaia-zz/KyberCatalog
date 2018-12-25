@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace Project.Repository.Repositories.Common
 {
-    public class RepositoryBase<TEntity>
-        : IDisposable
-        , IRepositoryBase<TEntity>
+    public class RepositoryBase<TEntity> : IDisposable, IRepositoryBase<TEntity> 
         where TEntity : class
     {
         protected readonly AppDbContext db;
@@ -45,6 +43,11 @@ namespace Project.Repository.Repositories.Common
         {
             db.Entry(obj).State = EntityState.Modified;
             await db.SaveChangesAsync();
+        }
+
+        public virtual int GetByNameCount(string name)
+        {
+            throw new NotImplementedException();
         }
 
         public void Dispose()

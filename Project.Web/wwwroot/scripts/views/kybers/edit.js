@@ -17,10 +17,15 @@
                 url: '/Kybers/EditKyber',
                 type: 'POST',
                 data: model,
-                success: function (d) {
+                success: function (data, status, xhr) {
 
-                    $('#msg').html(d);
-                    $('.form-control').val('');
+                    if (data.status === 200) {
+                        $('#msg').html(data.message);
+                        $('.form-control').val('');
+                    }
+                    else {
+                        $('#msg').html(data.message);
+                    }
                 },
                 error: function (e) {
 

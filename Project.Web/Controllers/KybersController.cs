@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Project.Business.Contracts;
 using Project.Domain.Contracts.Repositories;
 using Project.Domain.Entities;
+using Project.Repository.Repositories;
 using Project.Web.Models;
 using System;
 using System.Threading.Tasks;
@@ -10,14 +13,16 @@ namespace Project.Web.Controllers
 {
     public class KybersController : Controller
     {
+        private readonly IKyberBusiness _kyberBusiness;
         private readonly IKyberRepository _kyberRepository;
         private readonly IMapper _mapper;
 
-        public KybersController(IKyberRepository kyberRepository, IMapper mapper)
+        public KybersController(IKyberBusiness kyberBusiness, IKyberRepository kyberRepository, IMapper mapper)
         {
+            _kyberBusiness = kyberBusiness;
             _kyberRepository = kyberRepository;
             _mapper = mapper;
-        }            
+        }
 
         // GET: Kybers
         public async Task<IActionResult> Index()
@@ -42,15 +47,24 @@ namespace Project.Web.Controllers
             => View();
 
         // POST: Kybers/CreateKyber
-        public async Task<JsonResult> CreateKyber(KyberViewMdel model)
+        public async Task<JsonResult> CreateKyber(KyberCreateViewMdel model)
         {
             try
             {
                 var kyber = _mapper.Map<Kyber>(model);
 
-                await _kyberRepository.AddAsync(kyber);
+                if (_kyberBusiness.Exists(kyber).Result)
+                    throw new ArgumentException($"The kyber you're trying to register, already exists in database. Please, try another one.");
+                else
+                {
+                    await _kyberRepository.AddAsync(kyber);
 
-                return Json($"Kyber successful created.");
+                    return Json(new { status = 200, message = $"Kyber successful created." });
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                return Json(new { status = 400, message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -66,7 +80,7 @@ namespace Project.Web.Controllers
 
             var kyber = await _kyberRepository.GetByIdAsync(id);
 
-            var model = _mapper.Map<KyberViewMdel>(kyber);
+            var model = _mapper.Map<KyberEditViewMdel>(kyber);
 
             if (kyber == null)
                 return NotFound();
@@ -75,7 +89,7 @@ namespace Project.Web.Controllers
         }
 
         // POST: Kybers/EditKyber/5
-        public async Task<JsonResult> EditKyber(KyberViewMdel model)
+        public async Task<JsonResult> EditKyber(KyberEditViewMdel model)
         {
             try
             {
@@ -83,7 +97,12 @@ namespace Project.Web.Controllers
 
                 await _kyberRepository.UpdateAsync(kyber);
 
-                return Json($"Kyber successful updated.");
+                return Json(new { status = 200, message = $"Kyber successful updated." });
+            }
+            catch (DbUpdateException ex)
+            {
+                var exceptionInnerMessage = ex.Message;
+                return Json(new { status = 400, message = "The kyber you're trying to register, already exists in database. Please, try another one." });
             }
             catch (Exception ex)
             {

@@ -22,6 +22,12 @@ namespace Project.Repository.Migrations
                 {
                     table.PrimaryKey("PK_Kybers", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Kybers_Name",
+                table: "Kybers",
+                column: "Name",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

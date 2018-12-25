@@ -42,6 +42,9 @@ namespace Project.Repository.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Kybers");
                 });
 #pragma warning restore 612, 618

@@ -21,6 +21,9 @@ namespace Project.Repository.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new KyberMap());
+
+            modelBuilder.Entity<Kyber>()
+                .HasIndex(i => i.Name).IsUnique();
         }
         public DbSet<Kyber> Kybers { get; set; }
     }

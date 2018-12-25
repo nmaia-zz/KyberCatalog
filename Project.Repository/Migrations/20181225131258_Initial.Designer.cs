@@ -9,7 +9,7 @@ using Project.Repository.Context;
 namespace Project.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20181222220810_Initial")]
+    [Migration("20181225131258_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,6 +43,9 @@ namespace Project.Repository.Migrations
                         .HasColumnType("varchar(30)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Kybers");
                 });
