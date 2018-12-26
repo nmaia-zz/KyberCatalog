@@ -10,10 +10,12 @@ namespace Project.Repository.Repositories
 {
     public class KyberRepository : RepositoryBase<Kyber>, IKyberRepository
     {
-        public override async Task<IEnumerable<Kyber>> GetByNameOrColor(string nameOrColor)
+        public override async Task<IEnumerable<Kyber>> SearchByNameOrColor(string searchObj)
         {
             return await db.Set<Kyber>()
-                .Where(k => k.Name.Contains(nameOrColor) || k.Color.Contains(nameOrColor)).ToListAsync();
+                .Where(k => k.Name.ToLower().Contains(searchObj.ToLower()) || 
+                            k.Color.ToLower().Contains(searchObj.ToLower()))
+                                .ToListAsync();
         }
     }
 }

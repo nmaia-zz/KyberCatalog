@@ -24,13 +24,19 @@ namespace Project.Web.Controllers
         }
 
         // GET: Kybers
-        public async Task<ViewResult> Index([FromQuery] string searchObj)
+        public async Task<ViewResult> Index(string currentFilter, string searchString)
         {
-            if (string.IsNullOrEmpty(searchObj))
+            if (string.IsNullOrEmpty(searchString))
                 return View(await _kyberRepository.GetAllAsync());
             else
-                return View(await _kyberRepository.GetByNameOrColor(searchObj));            
-        }            
+                currentFilter = searchString;
+
+            ViewBag.CurrentFilter = searchString;
+
+            var searchResult = await _kyberRepository.SearchByNameOrColor(currentFilter);
+
+            return View(searchResult);
+        }
 
         // GET: Kybers/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -45,7 +45,7 @@ namespace Project.Repository.Repositories.Common
             await db.SaveChangesAsync();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetByNameOrColor(string nameOrColor)
+        public virtual async Task<IEnumerable<TEntity>> SearchByNameOrColor(string searchObj)
         {
             throw new NotImplementedException();
         }

@@ -10,14 +10,17 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<div class="row">
-    <div class="col-md-4">
-        <input type="text" id="txtFilter" class="form-control-sm" placeholder="Type name or color" aria-label="Filter" aria-describedby="basic-addon1" maxlength="30">
-        <button id="btnSearch" class="btn btn-primary btn-sm">
-            Search
-        </button>
+@using (Html.BeginForm("Index", "Kybers", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-md-4">
+
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control-sm", @placeholder = "Type name or color", @maxlength = 30 })
+            <input type="submit" value="Search" class="btn btn-primary btn-sm" />
+        </div>
     </div>
-</div>
+}
+
 <br />
 <div class="row">
     <div class="col-md-12">
@@ -56,9 +59,9 @@
                             @Html.DisplayFor(modelItem => item.Meaning)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Details</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>
                 }
@@ -66,8 +69,3 @@
         </table>
     </div>
 </div>
-
-@section Scripts {
-
-    <script src="~/scripts/views/kybers/filter.js"></script>
-}
