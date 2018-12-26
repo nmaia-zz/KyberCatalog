@@ -10,10 +10,5 @@ namespace Project.Business.Concrete.Common
         {
             throw new NotImplementedException();
         }
-
-        public virtual async Task<bool> CanEdit(TEntity obj)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

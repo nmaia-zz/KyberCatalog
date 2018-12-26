@@ -13,8 +13,7 @@
 @using (Html.BeginForm("Index", "Kybers", FormMethod.Get))
 {
     <div class="row">
-        <div class="col-md-4">
-
+        <div class="col-md-6">
             @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control-sm", @placeholder = "Type name or color", @maxlength = 30 })
             <input type="submit" value="Search" class="btn btn-primary btn-sm" />
         </div>
@@ -24,7 +23,7 @@
 <br />
 <div class="row">
     <div class="col-md-12">
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>
