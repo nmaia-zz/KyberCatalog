@@ -10,46 +10,44 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        
+
         <div class="form-group">
             <label class="control-label">Name: </label>
             <input type="text" id="txtName" name="txtName" class="form-control" />
             <span id="chkName" class="error"></span>
         </div>
-        
+
         <div class="form-group">
             <label class="control-label">Color: </label>
             <input type="text" id="txtColor" name="txtColor" class="form-control" />
             <span id="chkColor" class="error"></span>
         </div>
-        
+
         <div class="form-group">
             <label class="control-label">Planet: </label>
             <input type="text" id="txtPlanet" name="txtPlanet" class="form-control" />
             <span id="chkPlanet" class="error"></span>
         </div>
-        
+
         <div class="form-group">
             <label class="control-label">Meaning: </label>
             <input type="text" id="txtMeaning" name="txtMeaning" class="form-control" />
             <span id="chkMeaning" class="error"></span>
         </div>
-        
-        <button class="btn btn-default" id="btnCreate">
+
+        <button class="btn btn-success btn-sm" id="btnCreate">
             Create
         </button>
-        
+
+        <a asp-action="Index" class="btn btn-secondary btn-sm">Back to List</a>
+
         <br />
         <br />
-        
+
         <div id="msgContainer">
             <span id="msg"></span>
-        </div>        
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

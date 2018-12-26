@@ -36,9 +36,11 @@
             <span id="chkMeaning" class="error"></span>
         </div>
 
-        <button class="btn btn-default" id="btnEdit">
+        <button class="btn btn-warning btn-sm" id="btnEdit">
             Save
         </button>
+
+        <a asp-action="Index" class="btn btn-secondary btn-sm">Back to List</a>
 
         <br />
         <br />
@@ -47,10 +49,6 @@
             <span id="msg"></span>
         </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

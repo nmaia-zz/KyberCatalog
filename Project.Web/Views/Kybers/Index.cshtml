@@ -7,15 +7,15 @@
 <h2>CRUD for Kyber</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success btn-sm">Create New Kyber</a>
 </p>
 
 @using (Html.BeginForm("Index", "Kybers", FormMethod.Get))
 {
     <div class="row">
         <div class="col-md-6">
-            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control-sm", @placeholder = "Type name or color", @maxlength = 30 })
-            <input type="submit" value="Search" class="btn btn-primary btn-sm" />
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control-sm", @placeholder = "Search by name or color", @maxlength = 30 })
+            <input type="submit" value="Search" class="btn btn-secondary btn-sm" />
         </div>
     </div>
 }
