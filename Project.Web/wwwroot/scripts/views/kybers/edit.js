@@ -18,16 +18,24 @@
                 type: 'POST',
                 data: model,
                 success: function (data, status, xhr) {
-
+                    
                     if (data.status === 200) {
+
+                        $('#msgContainer').attr("class", "alert alert-success");
+                        $('#msgContainer').attr("role", "alert");
                         $('#msg').html(data.message);
                     }
                     else {
+
+                        $('#msgContainer').attr("class", "alert alert-warning");
+                        $('#msgContainer').attr("role", "alert");
                         $('#msg').html(data.message);
                     }
                 },
                 error: function (e) {
 
+                    $('#msgContainer').attr("class", "alert alert-danger");
+                    $('#msgContainer').attr("role", "alert");
                     $('#msg').html('Error: ' + e.status);
                 }
             });
